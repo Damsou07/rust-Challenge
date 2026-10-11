@@ -5,6 +5,7 @@ fn main() {
     println!("Variables ----");
     println!("i32 -> entier, f32 -> flotant, i64 et f64 -> entier 64 bits et flotant 64 bits");
     println!("bool -> boolean, char -> caractère Unicode");
+    // les u32 , u64 ect .. sont des entier positifs uniquement, isize et usize sont de taille non définis mais prennent plus d'espace mémoire
     let mon_age: i32 = 25;
     let nb_flotant: f32 = 3.14;
     let lettre: char = 'A';
@@ -24,7 +25,7 @@ fn main() {
     println!("Les String ");
     let nom: &str = "Damien";
     let mut message: String = String::from("Bonjour chouchou");
-    // ajout un char
+    // ajout un char , push_str() pour push les string
     message.push( '!');
     println!("{}", message);
     // {:?} -> quand le résultats peut être null
