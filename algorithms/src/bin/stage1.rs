@@ -1,5 +1,7 @@
 // Stage 1 trouver max dans un liste
 
+use std::cmp::Ordering;
+
 fn main() {
     test_find_max();
 }
@@ -17,10 +19,8 @@ fn find_max<T: PartialOrd + Copy ,const N: usize>(tab: &[T; N]) -> Option<T> {
     } else {return None}
 
     for i in j+1..N {
-        if tab[i].partial_cmp(&tab[i]).is_some() {
-            if max < tab[i]  {
-                max = tab[i];
-            }
+        if max.partial_cmp(&tab[i]) == Some(Ordering::Less) {
+            max = tab[i];
         }
     }
     return Some(max);
@@ -109,4 +109,22 @@ fn test_find_max() {
     // is_none() -> compare deux élements et définis si le résulat est none ou non (*pratique pour détecter les Nan)
     // is_some() -> revient à faire !is_none donc son contraire (en gros true si ça renvoie pas un none) permet d'éviter la double négation
      
+/*
+Petit point sur les performances
 
+Mon algo vs max rust native : ------
+    Tableau : 1000000 éléments
+    Maximum : Some(100001)
+    Médiane sur 30 mesures :
+    find_max perso : 0.441 ms
+    Rust natif     : 0.105 ms
+    Ratio perso / natif : 4.22x
+
+Pour comparer en python voila la lenteur de python : ------
+    Tableau : 1 000 000 éléments
+    Maximum : 100001
+    Médiane sur 5 mesures :
+    find_max perso : 24.874 ms
+    Python natif   : 7.267 ms
+    Ratio perso / natif : 3.42x
+*/
